@@ -1,0 +1,9 @@
+(async () => {
+    const db = require('./api/db');
+    //const novo = await db.InsertTeste({nome:'Lucas Neiva',idade:56});
+    //const up = await db.UpdateTeste({nome:'Mariana Silva',idade:31,id:5});
+    const del = await db.DeleteTeste({id:5});
+        
+    const todos = await db.SelecTeste();
+    console.log(todos)
+})()
