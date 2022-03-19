@@ -7,44 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body>
-    <div class="container" x-data="{ open: false, toggle() { this.open = ! this.open } }">
-
-        <button @click="toggle()" x-show="!open" class="btn btn-primary">LOGIN</button>
-        <button @click="toggle()" x-show="open" class="btn btn-warning">CADASTRO</button>
-
-        <div class="col-md-6" x-show="open">
+    <div class="container">
+        <div class="col-md-6">
             <p id="msg" class="text-center" style="display: none;">Entrou</p>
-            <form @submit.prevent="login">
+            <form id="form_login">
                 <label for="">Email</label>
-                <input type="email" class="form-control" name="email" required>
+                <input type="email" class="form-control" name="email" required value="teste@teste.com">
                 <label for="">Senha</label>
-                <input type="password" class="form-control" name="senha" required>
+                <input type="password" class="form-control" name="senha" required value="123">
                 <br>
                 <button type="submit" class="btn btn-primary btn-block">Entrar</button>
             </form>
         </div>
-        <div x-show="!open">
-            <h1>cadastro</h1>
-        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function login() {
+        $("#form_login").on('submit',function(e){
+            e.preventDefault();
             $.ajax({
                 type: "POST",
                 url: "http://localhost:3000/login",
-                data: $("#form_login").serialize(),
+                data: $(this).serialize(),
                 dataType: "JSON",
                 success: function (response) {
                     console.log(response)
-
+                }, error: function (e) {
+                    console.log(e.status)
                 }
             });
-        }
+
+        })
+      
     </script>
 
 </body>
